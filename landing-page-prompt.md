@@ -31,9 +31,9 @@ Split the landing page into **7 key sections**, each to be self-contained and mo
 
 1. **Hero Section**
 
-   - Eye-catching headline + subheadline
-   - CTA button
-   - Background animation or dynamic visual
+- Eye-catching headline + subheadline
+  - CTA button
+  - Background animation or dynamic visual
 
 2. **Quote Section #1**
 

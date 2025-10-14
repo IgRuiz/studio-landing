@@ -1,0 +1,91 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  background: rgba(var(--color-bg-primary-rgb, 10, 22, 40), 0.7);
+  border-bottom: 1px solid rgba($color-primary, 0.1);
+  @include transition(all);
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    opacity: 0.9;
+    @include transition(all);
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__logo-text {
+    font-size: 20px;
+    font-weight: $font-weight-bold;
+    color: var(--color-text-primary);
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+  }
+
+  &__nav {
+    display: none;
+    align-items: center;
+    gap: 20px;
+
+    @include respond-to(md) {
+      display: flex;
+    }
+  }
+
+  &__nav-link {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    opacity: 0.6;
+    padding: 4px 8px;
+    position: relative;
+    @include transition(all);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--active {
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background: $gradient-primary;
+        border-radius: $border-radius-full;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+}

@@ -1,12 +1,13 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 .bottom-cta {
   padding: $spacing-5xl 0;
-  background: $gradient-dark;
+  background: var(--gradient-dark);
   position: relative;
   overflow: hidden;
   will-change: transform, scale;
+  transition: background 0.3s ease;
 
   &__background {
     position: absolute;
@@ -20,17 +21,44 @@
 
     // Animated mesh gradient
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image:
-        linear-gradient(30deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
-        linear-gradient(150deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
-        linear-gradient(30deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
-        linear-gradient(150deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05));
+      background-image: linear-gradient(
+          30deg,
+          rgba($color-primary, 0.05) 12%,
+          transparent 12.5%,
+          transparent 87%,
+          rgba($color-primary, 0.05) 87.5%,
+          rgba($color-primary, 0.05)
+        ),
+        linear-gradient(
+          150deg,
+          rgba($color-primary, 0.05) 12%,
+          transparent 12.5%,
+          transparent 87%,
+          rgba($color-primary, 0.05) 87.5%,
+          rgba($color-primary, 0.05)
+        ),
+        linear-gradient(
+          30deg,
+          rgba($color-primary, 0.05) 12%,
+          transparent 12.5%,
+          transparent 87%,
+          rgba($color-primary, 0.05) 87.5%,
+          rgba($color-primary, 0.05)
+        ),
+        linear-gradient(
+          150deg,
+          rgba($color-primary, 0.05) 12%,
+          transparent 12.5%,
+          transparent 87%,
+          rgba($color-primary, 0.05) 87.5%,
+          rgba($color-primary, 0.05)
+        );
       background-size: 80px 140px;
       animation: meshMove 20s linear infinite;
     }
@@ -94,13 +122,19 @@
       margin: 0 0.15em;
 
       // Apply gradient to each word (same as Hero title)
-      background: linear-gradient(135deg, #ffffff 0%, #f4d03f 50%, #d4a574 100%);
+      background: linear-gradient(
+        135deg,
+        #d4a574 0%,
+        #f4d03f 50%,
+        #d4a574 100%
+      );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       background-size: 200% 200%;
     }
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1), shimmer 3s linear infinite;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      shimmer 3s linear infinite;
   }
 
   &__subtitle {
@@ -167,7 +201,11 @@
 
   &__success {
     padding: $spacing-lg $spacing-2xl;
-    background: linear-gradient(135deg, rgba($color-success, 0.2), rgba($color-success, 0.1));
+    background: linear-gradient(
+      135deg,
+      rgba($color-success, 0.2),
+      rgba($color-success, 0.1)
+    );
     color: $color-text-inverse;
     border-radius: $border-radius-xl;
     border: 2px solid $color-success;

@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { quote1Content } from './data';
+import { useTranslations } from '../../i18n/useTranslations';
 import './Quote1.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Quote1: React.FC = () => {
+  const t = useTranslations();
   const quoteRef = useRef<HTMLQuoteElement>(null);
   const authorRef = useRef<HTMLElement>(null);
 
@@ -76,17 +77,17 @@ export const Quote1: React.FC = () => {
         }
       });
     };
-  }, []);
+  }, [t]);
 
   return (
     <section className="quote-section quote-section--1">
       <div className="container">
         <div className="quote-section__content">
           <blockquote ref={quoteRef} className="quote-section__quote">
-            "{quote1Content.quote}"
+            "{t.quote1.quote}"
           </blockquote>
           <cite ref={authorRef} className="quote-section__author">
-            {quote1Content.author}
+            {t.quote1.author}
           </cite>
         </div>
       </div>

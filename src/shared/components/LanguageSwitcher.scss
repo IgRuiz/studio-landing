@@ -1,0 +1,105 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.language-switcher {
+  position: relative;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    opacity: 0.7;
+    @include transition(all);
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  &__label {
+    letter-spacing: 0.5px;
+  }
+
+  &__arrow {
+    font-size: 8px;
+    transition: transform 0.3s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 120px;
+    background: var(--color-bg-primary);
+    border: 1px solid rgba($color-primary, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    animation: dropdownSlideIn 0.2s ease;
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+
+  &__option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    @include transition(all);
+
+    &:hover {
+      background: rgba($color-primary, 0.1);
+    }
+
+    &--active {
+      background: rgba($color-primary, 0.15);
+
+      .language-switcher__option-label {
+        color: $color-primary;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($color-primary, 0.1);
+    }
+  }
+
+  &__option-label {
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.5px;
+  }
+
+  &__option-name {
+    color: var(--color-text-secondary);
+    font-size: 11px;
+  }
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,3 +1,6 @@
+import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
+import { Header, Footer } from './shared/components';
 import { ScrollGradient } from './components/ScrollGradient';
 import { Hero } from './sections/Hero';
 import { Quote1 } from './sections/Quote1';
@@ -10,18 +13,22 @@ import './App.scss';
 
 function App() {
   return (
-    <>
-      <ScrollGradient />
-      <main>
-        <Hero />
-        <Quote1 />
-        <StudioSlider />
-        <Quote2 />
-        <Services />
-        <WhyUs />
-        <BottomCTA />
-      </main>
-    </>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Header />
+        <ScrollGradient />
+        <main>
+          <Hero />
+          <Quote1 />
+          <StudioSlider />
+          <Quote2 />
+          <Services />
+          <WhyUs />
+          <BottomCTA />
+        </main>
+        <Footer />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

@@ -3,9 +3,10 @@
 
 .quote-section {
   padding: $spacing-5xl 0;
-  background: transparent;
+  background: var(--gradient-dark);
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
 
   &__content {
     position: relative;
@@ -20,7 +21,7 @@
     @include heading-2;
     font-style: italic;
     font-weight: $font-weight-semibold;
-    color: $color-text-inverse;
+    color: var(--color-text-primary);
     margin-bottom: $spacing-2xl;
     position: relative;
     font-size: $font-size-2xl;

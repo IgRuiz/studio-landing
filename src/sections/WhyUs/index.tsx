@@ -2,12 +2,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionTitle } from '../../shared/components';
+import { useTranslations } from '../../i18n/useTranslations';
 import { whyUsContent } from './data';
 import './WhyUs.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const WhyUs: React.FC = () => {
+  const t = useTranslations();
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -141,15 +143,23 @@ export const WhyUs: React.FC = () => {
     };
   }, []);
 
+  // Combine icons from data with text from translations
+  const reasonsWithTranslations = t.whyUs.items.map((item, index) => ({
+    id: whyUsContent.reasons[index]?.id || index + 1,
+    icon: whyUsContent.reasons[index]?.icon || "⚡",
+    title: item.title,
+    description: item.description,
+  }));
+
   return (
-    <section className="why-us">
+    <section id="why-us" className="why-us">
       <div className="container">
-        <SectionTitle subtitle={whyUsContent.subtitle}>
-          {whyUsContent.title}
+        <SectionTitle subtitle={t.whyUs.subtitle}>
+          {t.whyUs.title}
         </SectionTitle>
 
         <div className="why-us__list">
-          {whyUsContent.reasons.map((reason, index) => (
+          {reasonsWithTranslations.map((reason, index) => (
             <div
               key={reason.id}
               ref={(el) => {

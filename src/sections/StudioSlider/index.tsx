@@ -2,12 +2,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionTitle } from '../../shared/components';
+import { useTranslations } from '../../i18n/useTranslations';
 import { studioSliderContent } from './data';
 import './StudioSlider.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const StudioSlider: React.FC = () => {
+  const t = useTranslations();
   const sectionRef = useRef<HTMLElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -71,16 +73,23 @@ export const StudioSlider: React.FC = () => {
     };
   }, []);
 
+  // Combine images from data with text from translations
+  const slidesWithTranslations = studioSliderContent.slides.map((slide, index) => ({
+    ...slide,
+    title: t.studioSlider.slides[index]?.title || slide.title,
+    description: t.studioSlider.slides[index]?.description || slide.description,
+  }));
+
   return (
     <section ref={sectionRef} className="studio-slider">
       <div className="container studio-slider__header">
-        <SectionTitle subtitle={studioSliderContent.subtitle}>
-          {studioSliderContent.title}
+        <SectionTitle subtitle={t.studioSlider.subtitle}>
+          {t.studioSlider.title}
         </SectionTitle>
       </div>
 
       <div ref={sliderRef} className="studio-slider__track">
-        {studioSliderContent.slides.map((slide, index) => (
+        {slidesWithTranslations.map((slide, index) => (
           <div
             key={slide.id}
             ref={(el) => {

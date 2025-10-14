@@ -1,16 +1,18 @@
 import { Button } from '../../shared/components';
-import { heroContent } from './data';
+import { useTranslations } from '../../i18n/useTranslations';
 import './Hero.scss';
 
 export const Hero: React.FC = () => {
+  const t = useTranslations();
+
   const handleCTA = () => {
-    // Scroll to bottom CTA section
-    const ctaSection = document.querySelector('#bottom-cta');
+    // Scroll to contact section
+    const ctaSection = document.getElementById('contact');
     ctaSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
       <div className="hero__background">
         <div className="hero__gradient-orb hero__gradient-orb--1"></div>
         <div className="hero__gradient-orb hero__gradient-orb--2"></div>
@@ -19,11 +21,11 @@ export const Hero: React.FC = () => {
 
       <div className="container hero__container">
         <div className="hero__content">
-          <h1 className="hero__title">{heroContent.title}</h1>
-          <p className="hero__subtitle">{heroContent.subtitle}</p>
+          <h1 className="hero__title">{t.hero.title}</h1>
+          <p className="hero__subtitle">{t.hero.subtitle}</p>
           <div className="hero__cta">
             <Button size="large" onClick={handleCTA}>
-              {heroContent.ctaLabel}
+              {t.hero.ctaLabel}
             </Button>
           </div>
         </div>

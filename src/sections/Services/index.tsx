@@ -2,12 +2,14 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionTitle } from "../../shared/components";
+import { useTranslations } from "../../i18n/useTranslations";
 import { servicesContent } from "./data";
 import "./Services.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Services: React.FC = () => {
+  const t = useTranslations();
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -116,17 +118,24 @@ export const Services: React.FC = () => {
     };
   }, []);
 
-  // Double the services for seamless loop
+  // Double the services for seamless loop - use icons from data but text from translations
+  const servicesWithTranslations = t.services.items.map((item, index) => ({
+    id: servicesContent.services[index]?.id || index + 1,
+    icon: servicesContent.services[index]?.icon || "🚀",
+    title: item.title,
+    description: item.description,
+  }));
+
   const doubledServices = [
-    ...servicesContent.services,
-    ...servicesContent.services,
+    ...servicesWithTranslations,
+    ...servicesWithTranslations,
   ];
 
   return (
-    <section ref={sectionRef} className="services">
+    <section id="services" ref={sectionRef} className="services">
       <div className="container">
-        <SectionTitle subtitle={servicesContent.subtitle}>
-          {servicesContent.title}
+        <SectionTitle subtitle={t.services.subtitle}>
+          {t.services.title}
         </SectionTitle>
       </div>
 

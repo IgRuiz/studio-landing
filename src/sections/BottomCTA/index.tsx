@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../../shared/components";
-import { bottomCTAContent } from "./data";
+import { useTranslations } from "../../i18n/useTranslations";
 import "./BottomCTA.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const BottomCTA: React.FC = () => {
+  const t = useTranslations();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -232,7 +233,7 @@ export const BottomCTA: React.FC = () => {
         }
       });
     };
-  }, []);
+  }, [t]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -248,7 +249,7 @@ export const BottomCTA: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="bottom-cta" id="bottom-cta">
+    <section id="contact" ref={sectionRef} className="bottom-cta">
       <div ref={backgroundRef} className="bottom-cta__background">
         <div
           ref={orb1Ref}
@@ -263,10 +264,10 @@ export const BottomCTA: React.FC = () => {
       <div className="container">
         <div ref={contentRef} className="bottom-cta__content">
           <h2 ref={titleRef} className="bottom-cta__title">
-            {bottomCTAContent.title}
+            {t.bottomCTA.title}
           </h2>
           <p ref={subtitleRef} className="bottom-cta__subtitle">
-            {bottomCTAContent.subtitle}
+            {t.bottomCTA.subtitle}
           </p>
 
           <form
@@ -278,13 +279,13 @@ export const BottomCTA: React.FC = () => {
               <input
                 type="email"
                 className="bottom-cta__input"
-                placeholder={bottomCTAContent.emailPlaceholder}
+                placeholder={t.bottomCTA.emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <Button type="submit" size="large">
-                {bottomCTAContent.ctaLabel}
+                {t.bottomCTA.ctaLabel}
               </Button>
             </div>
 
@@ -296,7 +297,7 @@ export const BottomCTA: React.FC = () => {
           </form>
 
           <div ref={trustSignalsRef} className="bottom-cta__trust-signals">
-            {bottomCTAContent.trustSignals.map((signal, index) => (
+            {t.bottomCTA.trustSignals.map((signal, index) => (
               <div key={index} className="bottom-cta__trust-item">
                 <span className="bottom-cta__check">✓</span>
                 <span>{signal}</span>

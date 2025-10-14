@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { quote2Content } from "./data";
+import { useTranslations } from "../../i18n/useTranslations";
 import "./Quote2.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Quote2: React.FC = () => {
+  const t = useTranslations();
   const sectionRef = useRef<HTMLElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const quoteRef = useRef<HTMLQuoteElement>(null);
@@ -164,23 +165,23 @@ export const Quote2: React.FC = () => {
         }
       });
     };
-  }, []);
+  }, [t]);
 
   return (
     <section ref={sectionRef} className="quote-section quote-section--2">
       <div className="container">
         <div ref={contentRef} className="quote-section__content">
           <span ref={labelRef} className="quote-section__label">
-            {quote2Content.problem}
+            {t.quote2.problem}
           </span>
           <blockquote
             ref={quoteRef}
             className="quote-section__quote quote-section__quote--large"
           >
-            {quote2Content.quote}
+            {t.quote2.quote}
           </blockquote>
           <p ref={descriptionRef} className="quote-section__description">
-            {quote2Content.description}
+            {t.quote2.description}
           </p>
         </div>
       </div>

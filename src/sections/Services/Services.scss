@@ -3,10 +3,11 @@
 
 .services {
   padding: $spacing-5xl 0;
-  background: transparent;
+  background: var(--gradient-dark);
   position: relative;
   overflow: hidden;
   will-change: transform;
+  transition: background 0.3s ease;
 
   &__carousel {
     position: relative;

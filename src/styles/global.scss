@@ -1,6 +1,27 @@
 @use './variables' as *;
 @use './mixins' as *;
 
+// Theme variables
+:root[data-theme='dark'] {
+  --color-bg-primary: #{$color-bg-dark};
+  --color-bg-secondary: #{$color-bg-darker};
+  --color-text-primary: #{$color-text-inverse};
+  --color-text-secondary: #{rgba($color-text-inverse, 0.8)};
+  --gradient-dark: linear-gradient(135deg, #0a1628 0%, #0f1d35 50%, #1a2942 100%);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --color-bg-primary-rgb: 10, 22, 40;
+}
+
+:root[data-theme='light'] {
+  --color-bg-primary: #f8f6f3;
+  --color-bg-secondary: #ffffff;
+  --color-text-primary: #{$color-bg-dark};
+  --color-text-secondary: rgba(10, 22, 40, 0.8);
+  --gradient-dark: linear-gradient(135deg, #f8f6f3 0%, #ffffff 50%, #f4f2ef 100%);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --color-bg-primary-rgb: 248, 246, 243;
+}
+
 // CSS Reset
 *, *::before, *::after {
   box-sizing: border-box;
@@ -21,11 +42,12 @@ body {
   font-size: $font-size-base;
   font-weight: $font-weight-normal;
   line-height: $line-height-normal;
-  color: $color-text-primary;
-  background-color: $color-bg-primary;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   // Smooth gradient background overlay - Gold & Navy theme
   &::before {
@@ -40,6 +62,7 @@ body {
                 radial-gradient(circle at 40% 10%, rgba(10, 22, 40, 0.02) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
+    transition: opacity 0.3s ease;
   }
 }
 
@@ -54,7 +77,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-family-heading;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;
-  color: $color-text-primary;
+  color: var(--color-text-primary);
 }
 
 p {
