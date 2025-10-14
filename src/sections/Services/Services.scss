@@ -1,0 +1,201 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.services {
+  padding: $spacing-5xl 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+
+  &__carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: $spacing-4xl 0;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  &__track {
+    display: flex;
+    gap: 2rem;
+    will-change: transform;
+  }
+
+  &__card {
+    flex: 0 0 400px;
+    min-height: 500px;
+    border-radius: $border-radius-3xl;
+    background: rgba(15, 25, 45, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($color-primary, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    will-change: transform, opacity, border-width;
+
+    @include respond-to(md) {
+      flex: 0 0 450px;
+      min-height: 550px;
+    }
+
+    // Animated gradient border that intensifies at center
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      padding: 2px;
+      background: $gradient-primary;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    // Glow effect for center card
+    &::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: $gradient-primary;
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      filter: blur(20px);
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  &__icon-wrapper {
+    position: relative;
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: $border-radius-3xl $border-radius-3xl 0 0;
+  }
+
+  &__icon-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(
+      to bottom,
+      rgba($color-primary, 0.15),
+      transparent
+    );
+    backdrop-filter: blur(30px);
+    z-index: 1;
+  }
+
+  &__icon {
+    font-size: 10rem;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 10px 30px rgba($color-primary, 0.2));
+
+    @include respond-to(md) {
+      font-size: 12rem;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: $spacing-3xl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+
+    // Top accent line
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 3px;
+      background: $gradient-secondary;
+      border-radius: $border-radius-full;
+    }
+  }
+
+  &__title {
+    @include heading-3;
+    margin-bottom: $spacing-lg;
+    color: $color-text-inverse;
+    font-size: $font-size-xl;
+    transition: all 0.3s ease;
+
+    @include respond-to(md) {
+      font-size: $font-size-2xl;
+    }
+  }
+
+  &__description {
+    color: rgba($color-text-inverse, 0.7);
+    line-height: $line-height-relaxed;
+    font-size: $font-size-base;
+    transition: color 0.3s ease;
+
+    @include respond-to(md) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  // Center highlight states (will be controlled by JS)
+  &__card.is-center {
+    transform: scale(1.05);
+    opacity: 1 !important;
+    border-width: 3px;
+    border-color: $color-primary;
+    box-shadow: $shadow-3xl, $shadow-glow-purple;
+    background: rgba(15, 25, 45, 0.9);
+
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 0.6;
+    }
+
+    .services__icon {
+      transform: scale(1.1) rotate(3deg);
+    }
+
+    .services__title {
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .services__description {
+      color: $color-text-primary;
+    }
+  }
+}

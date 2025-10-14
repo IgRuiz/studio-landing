@@ -1,0 +1,96 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section-title {
+  margin-bottom: $spacing-4xl;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &--left {
+    text-align: left;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--right {
+    text-align: right;
+  }
+
+  &__heading {
+    @include heading-2;
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-4xl;
+    position: relative;
+    display: inline-block;
+
+    @include respond-to(md) {
+      font-size: $font-size-5xl;
+    }
+
+    // Gradient text
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+
+    // Word wrapper for animation
+    .word-wrapper {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .word {
+      display: inline-block;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+    }
+
+    // Decorative underline
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -$spacing-md;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: $gradient-secondary;
+      border-radius: $border-radius-full;
+
+      .section-title--center & {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .section-title--right & {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  &__subtitle {
+    @include body-large;
+    color: $color-text-secondary;
+    max-width: 700px;
+    line-height: $line-height-relaxed;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+
+    .section-title--center & {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-title--right & {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.quote-section {
+  padding: $spacing-5xl 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+
+  &__content {
+    position: relative;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: $spacing-4xl $spacing-2xl;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &__quote {
+    @include heading-2;
+    font-style: italic;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    margin-bottom: $spacing-2xl;
+    position: relative;
+    font-size: $font-size-2xl;
+    line-height: 1.4;
+
+    @include respond-to(md) {
+      font-size: $font-size-4xl;
+    }
+
+    // Character animation wrapper
+    .char {
+      display: inline-block;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    // Large decorative quotes
+    &::before,
+    &::after {
+      position: absolute;
+      font-size: 120px;
+      font-family: Georgia, serif;
+      opacity: 0.15;
+      font-weight: bold;
+      line-height: 1;
+
+      @include respond-to(md) {
+        font-size: 180px;
+      }
+    }
+
+    &::before {
+      content: '"';
+      top: -40px;
+      left: -20px;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @include respond-to(md) {
+        top: -60px;
+        left: -40px;
+      }
+    }
+
+    &::after {
+      content: '"';
+      bottom: -60px;
+      right: -20px;
+      background: $gradient-secondary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @include respond-to(md) {
+        bottom: -80px;
+        right: -40px;
+      }
+    }
+  }
+
+  &__author {
+    display: block;
+    font-size: $font-size-xl;
+    background: $gradient-accent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: $font-weight-bold;
+    font-style: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+
+    &::before {
+      content: '— ';
+    }
+  }
+}

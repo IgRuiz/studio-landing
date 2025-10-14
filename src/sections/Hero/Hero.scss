@@ -1,0 +1,306 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: $gradient-dark;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+
+    // Animated grid
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(
+          rgba($color-primary-light, 0.1) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba($color-primary-light, 0.1) 1px,
+          transparent 1px
+        );
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      opacity: 0.3;
+    }
+  }
+
+  &__gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.6;
+    animation: float 20s ease-in-out infinite, pulse 4s ease-in-out infinite;
+    will-change: transform, opacity;
+
+    &--1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(
+        circle,
+        $color-primary 0%,
+        $color-primary-dark 100%
+      );
+      top: -300px;
+      left: -200px;
+      animation-delay: 0s;
+    }
+
+    &--2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(
+        circle,
+        $color-secondary 0%,
+        $color-secondary-dark 100%
+      );
+      top: 50%;
+      right: -150px;
+      animation-delay: -7s;
+    }
+
+    &--3 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(
+        circle,
+        $color-accent 0%,
+        $color-accent-dark 100%
+      );
+      bottom: -200px;
+      left: 30%;
+      animation-delay: -14s;
+    }
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4xl;
+    align-items: center;
+    padding-top: $spacing-5xl;
+    padding-bottom: $spacing-5xl;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  &__content {
+    text-align: center;
+
+    @include respond-to(lg) {
+      text-align: left;
+    }
+  }
+
+  &__title {
+    @include heading-1;
+    color: $color-text-inverse;
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-4xl;
+    line-height: 1.1;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+
+    @include respond-to(md) {
+      font-size: $font-size-6xl;
+    }
+
+    @include respond-to(lg) {
+      font-size: $font-size-7xl;
+    }
+
+    // Gradient text effect - Gold theme
+    background: linear-gradient(135deg, #ffffff 0%, #f4d03f 50%, #d4a574 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1),
+      gradientShift 5s ease infinite;
+  }
+
+  &__subtitle {
+    @include body-large;
+    color: rgba($color-text-inverse, 0.9);
+    margin-bottom: $spacing-3xl;
+    font-size: $font-size-lg;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+    line-height: 1.8;
+    max-width: 600px;
+
+    @include respond-to(lg) {
+      font-size: $font-size-xl;
+    }
+
+    .hero__content & {
+      margin-left: auto;
+      margin-right: auto;
+
+      @include respond-to(lg) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__cta {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  }
+
+  &__visual {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+
+    @include respond-to(md) {
+      height: 600px;
+    }
+  }
+
+  &__animation-box {
+    position: absolute;
+    border-radius: $border-radius-2xl;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba($color-text-inverse, 0.15);
+    animation: float3D 15s ease-in-out infinite;
+    transition: all $transition-slow;
+    will-change: transform;
+
+    // Glassmorphism effect
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37),
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+    // Shine effect
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: $gradient-shine;
+      opacity: 0;
+      transition: opacity $transition-base;
+    }
+
+    &:hover {
+      transform: scale(1.05) translateZ(20px);
+      border-color: rgba($color-text-inverse, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &--1 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(
+        135deg,
+        rgba($color-primary, 0.3) 0%,
+        rgba($color-secondary, 0.3) 100%
+      );
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 0s;
+      z-index: 3;
+
+      @include respond-to(md) {
+        width: 350px;
+        height: 350px;
+      }
+    }
+
+    &--2 {
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(
+        135deg,
+        rgba($color-secondary, 0.4) 0%,
+        rgba($color-accent, 0.4) 100%
+      );
+      top: 10%;
+      left: 5%;
+      animation-delay: -5s;
+      z-index: 2;
+
+      @include respond-to(md) {
+        width: 250px;
+        height: 250px;
+      }
+    }
+
+    &--3 {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(
+        135deg,
+        rgba($color-accent, 0.3) 0%,
+        rgba($color-primary, 0.3) 100%
+      );
+      bottom: 5%;
+      right: 10%;
+      animation-delay: -10s;
+      z-index: 1;
+
+      @include respond-to(md) {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+}
+
+@keyframes float3D {
+  0%,
+  100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-30px) rotateX(10deg) rotateY(-10deg);
+  }
+  50% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  75% {
+    transform: translateY(30px) rotateX(-10deg) rotateY(10deg);
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}

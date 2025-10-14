@@ -1,0 +1,236 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.bottom-cta {
+  padding: $spacing-5xl 0;
+  background: $gradient-dark;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, scale;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    will-change: transform;
+
+    // Animated mesh gradient
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(30deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
+        linear-gradient(150deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
+        linear-gradient(30deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05)),
+        linear-gradient(150deg, rgba($color-primary, 0.05) 12%, transparent 12.5%, transparent 87%, rgba($color-primary, 0.05) 87.5%, rgba($color-primary, 0.05));
+      background-size: 80px 140px;
+      animation: meshMove 20s linear infinite;
+    }
+  }
+
+  &__gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.5;
+    animation: float 25s ease-in-out infinite, pulse 5s ease-in-out infinite;
+    will-change: transform, opacity;
+
+    &--1 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, $color-primary 0%, transparent 70%);
+      top: -350px;
+      right: -200px;
+      animation-delay: 0s;
+    }
+
+    &--2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, $color-secondary 0%, transparent 70%);
+      bottom: -300px;
+      left: -150px;
+      animation-delay: -10s;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    will-change: transform;
+  }
+
+  &__title {
+    @include heading-1;
+    margin-bottom: $spacing-2xl;
+    font-size: $font-size-4xl;
+    line-height: 1.2;
+
+    @include respond-to(md) {
+      font-size: $font-size-5xl;
+    }
+
+    @include respond-to(lg) {
+      font-size: $font-size-6xl;
+    }
+
+    // Word animation wrapper
+    .word {
+      display: inline-block;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      margin: 0 0.15em;
+
+      // Apply gradient to each word (same as Hero title)
+      background: linear-gradient(135deg, #ffffff 0%, #f4d03f 50%, #d4a574 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+    }
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1), shimmer 3s linear infinite;
+  }
+
+  &__subtitle {
+    @include body-large;
+    color: rgba($color-text-inverse, 0.85);
+    margin-bottom: $spacing-4xl;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+    font-size: $font-size-lg;
+
+    @include respond-to(md) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__form {
+    margin-bottom: $spacing-3xl;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include respond-to(md) {
+      flex-direction: row;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    padding: $spacing-lg $spacing-2xl;
+    border: 2px solid rgba($color-text-inverse, 0.15);
+    border-radius: $border-radius-xl;
+    background: rgba($color-text-inverse, 0.05);
+    color: $color-text-inverse;
+    font-size: $font-size-lg;
+    @include transition(all);
+    backdrop-filter: blur(10px);
+
+    &::placeholder {
+      color: rgba($color-text-inverse, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary-light;
+      background: rgba($color-text-inverse, 0.1);
+      box-shadow: 0 0 0 4px rgba($color-primary, 0.2), $shadow-glow-purple;
+      transform: translateY(-2px);
+    }
+
+    // Animated gradient border on focus
+    &:focus-visible {
+      border-color: transparent;
+      box-shadow: 0 0 0 2px $color-primary, $shadow-glow-purple;
+    }
+  }
+
+  &__success {
+    padding: $spacing-lg $spacing-2xl;
+    background: linear-gradient(135deg, rgba($color-success, 0.2), rgba($color-success, 0.1));
+    color: $color-text-inverse;
+    border-radius: $border-radius-xl;
+    border: 2px solid $color-success;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-lg;
+    animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 0 20px rgba($color-success, 0.3);
+  }
+
+  &__trust-signals {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    align-items: center;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+
+    @include respond-to(md) {
+      flex-direction: row;
+      justify-content: center;
+      gap: $spacing-3xl;
+    }
+  }
+
+  &__trust-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    color: rgba($color-text-inverse, 0.8);
+    font-size: $font-size-base;
+    transition: all $transition-base;
+
+    &:hover {
+      color: $color-text-inverse;
+      transform: translateY(-2px);
+
+      .bottom-cta__check {
+        transform: scale(1.1);
+        box-shadow: $shadow-glow-cyan;
+      }
+    }
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $gradient-accent;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-extrabold;
+    box-shadow: 0 4px 10px rgba($color-accent, 0.3);
+    transition: all $transition-base;
+  }
+}
+
+@keyframes meshMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 80px 140px;
+  }
+}
